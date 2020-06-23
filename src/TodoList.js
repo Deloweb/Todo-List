@@ -1,44 +1,53 @@
 import React, { Component } from 'react';
-import Task from "./Task";
+
+import TaskForm from "./TaskForm";
+import TaskList from "./TaskList";
+
+import { v4 as uuidv4 } from 'uuid';
 
 class TodoList extends Component {
-    state = { 
-        todoListTitle: "My Todo List",
+    state = {
         tasks: [
             {
-                title: "Faire ma chambre",
-                subTask :[
-                    "Faire les poussières", "Passer l'aspirateur", "Laver le sol", "Laver les carreaux"
-                ]
+                id: uuidv4(),
+               title: "Faire ma demande à Régine",
             },
             {
-                title: "Faire la vaiselle", 
-                subTask: [
-                "Laver la vaisselle", "Essuyer la vaiselle"
-                ]
-            },
-            {
-                title: "Monter mon pc",
-                subTask: [
-                "Recevoir toutes les pièces", "Monter les pièces", "Profiter"
-            ]
-        },
-            {
-                title: "Faire la cuisine", 
-                subTask: [
-                "Préchauffer le four", "Mettre la pizza dans le four", "Manger"
-            ]
-        }
+                id: uuidv4(),
+                title: "Prier pour qu'elle dise oui",
+            }
         ]
      }
+
+     addTask = (task) =>  {
+         console.log(task);
+         let newTask = {
+             id: uuidv4(),
+             title: task
+         }
+         this.setState({
+             tasks: [...this.state.tasks, newTask]
+         })
+     }
+
+     deleteTask = (id) => {
+         console.log(id);
+         let tasks = this.state.tasks.filter(task => task.id !== id);
+         this.setState({
+             tasks: tasks
+         })
+     }
+
     render() { 
+
         return ( 
-            <div className="todolist">
-                <h2 className="toolist__title">{this.state.todoListTitle}</h2>
-                <Task title ={this.state.tasks}/>
-            </div>
-         );
+        <div className="todolist">
+            <TaskForm addTask={this.addTask} />
+            <TaskList tasks={this.state.tasks} deleteTask={this.deleteTask} />
+        </div> 
+        );
     }
 }
  
 export default TodoList;
+

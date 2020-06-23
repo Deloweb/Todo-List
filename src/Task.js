@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import SubTask from "./SubTask";
 
 class Task extends Component {
+    state = {  }
     render() { 
-        let taskArrayJSX = this.props.title.map(task => 
-            <li><SubTask task={task} /></li>)
+        let task = this.props.task;
 
         return ( 
-            <ul className="task-list">
-                {taskArrayJSX}
-            </ul>
-
-         );
+            <div className="task">
+                <p>{task.title}</p> 
+            </div>
+        );
     }
 }
  
