@@ -4,6 +4,7 @@ import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
 
 import { v4 as uuidv4 } from 'uuid';
+import axios from "axios";
 
 class TodoList extends Component {
     state = {
@@ -19,6 +20,17 @@ class TodoList extends Component {
         ]
      }
 
+    componentDidMount() {
+    axios.get('https://jsonplaceholder.typicode.com/todos')
+    .then(res => {
+        console.log(res.data);
+        this.setState({
+            tasks: res.data
+        })
+    })
+
+    }
+    
      addTask = (task) =>  {
          console.log(task);
          let newTask = {
